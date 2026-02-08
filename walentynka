@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Dla Gabrysi ❤️</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* ZMIANA */
+            margin: 0;
+            background-color: #ffeef2;
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden; /* ZMIANA */
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
+            text-align: center;
+            max-width: 380px;
+            width: 85%;
+            z-index: 2;
+        }
+
+        .photo-container img {
+            width: 100%;
+            max-height: 60vh;        /* DODANE */
+            object-fit: contain;    /* DODANE */
+            border-radius: 20px;
+            margin-bottom: 10px;
+            border: 3px solid #ffeef2;
+            display: block;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 1.4rem;
+            margin: 10px 0;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            height: 120px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            z-index: 10;
+        }
+
+        #noBtn {
+            background-color: #e9ecef;
+            color: #495057;
+            position: relative;
+            display: inline-block;
+        }
+
+        .heart {
+            position: fixed;
+            top: -1vh;
+            animation: fall 3s linear forwards;
+            font-size: 1.5rem;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <div class="photo-container">
+            <img src="https://i.ibb.co/XZmntrJ8/image-d0ec5c.jpg" alt="Dla Gabrysi">
+        </div>
+
+        <h1 id="mainTitle">Gabrysiu, czy zostaniesz moją Walentynką? ❤️</h1>
+
+        <div class="btn-container" id="buttons">
+            <button id="yesBtn" onclick="agree()">TAK</button>
+            <button id="noBtn" onmouseover="moveNo()" ontouchstart="moveNo()">NIE</button>
+        </div>
+    </div>
+
+    <script>
+        let noScale = 1;
+        let yesScale = 1;
+
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+
+            noBtn.style.position = 'absolute';
+            noScale -= 0.12;
+            if (noScale < 0.2) noScale = 0.1;
+            noBtn.style.transform = `scale(${noScale})`;
+
+            yesScale += 0.15;
+            yesBtn.style.transform = `scale(${yesScale})`;
+
+            const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2 - 50);
+            const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
+
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        function agree() {
+            document.getElementById('buttons').style.display = 'none';
+            document.getElementById('mainTitle').innerHTML =
+                "Wiedziałem, Gabrysiu! ❤️<br>Bardzo się cieszę! 🥰";
+            document.body.style.backgroundColor = "#ffb6c1";
+            setInterval(createHeart, 300);
+        }
+    </script>
+</body>
+</html>
